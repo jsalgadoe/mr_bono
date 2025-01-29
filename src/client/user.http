@@ -1,0 +1,50 @@
+
+
+###*  todos los usuarios
+GET http://localhost:3000/api/user/all
+Content-Type: application/json
+
+{
+
+}
+
+
+###* Crear user 
+POST http://localhost:3000/api/user/new
+Content-Type: application/json
+
+{
+  "name":"Pepito",
+  "email":"jsalgadoecheverria@gmail.com",
+  "rol":"ADMIN"
+}
+
+###* Consulta usuario por id 
+GET http://localhost:3000/api/user/2
+Content-Type: application/json
+
+{
+ 
+}
+
+
+
+###* edicion de usuario por id 
+
+PUT http://localhost:3000/api/user/edit/1
+Content-Type: application/json
+
+{
+
+}
+
+
+###* eliminacion de usuario por id 
+
+###
+DELETE http://localhost:3000/api/user/1
+Content-Type: application/json
+
+{
+
+}
