@@ -38,6 +38,32 @@ export class UserService {
     }
   }
 
+  async findAll() {
+    try {
+      const users = await this.prisma.user.findMany();
+
+      if (users.length === 0) {
+        throw new NotFoundException('No hay usuario para mostrars');
+      }
+
+      return users;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        // The .code property can be accessed in a type-safe manner
+        if (error.code === 'P2001') {
+          throw new ConflictException(
+            'El usuario que este intentando buscar con ese id no existe',
+          );
+        }
+
+        if (error.code === 'P2025') {
+          throw new NotFoundException('El usuario no existe ');
+        }
+      }
+      throw error;
+    }
+  }
+
   async findBy(id: number) {
     try {
       const user = await this.prisma.user.findFirstOrThrow({
@@ -69,7 +95,7 @@ export class UserService {
     try {
       const userExists = await this.prisma.user.findUnique({
         where: {
-          id,
+          id: +id,
         },
       });
 
@@ -79,7 +105,7 @@ export class UserService {
 
       const userUpdate = this.prisma.user.update({
         where: {
-          id,
+          id: +id,
         },
         data: {
           ...rest,
@@ -88,6 +114,42 @@ export class UserService {
       });
 
       return userUpdate;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        // The .code property can be accessed in a type-safe manner
+        if (error.code === 'P2001') {
+          throw new ConflictException(
+            'El usuario que este intentando buscar con ese id no existe',
+          );
+        }
+
+        if (error.code === 'P2025') {
+          throw new NotFoundException('El usuario no existe ');
+        }
+      }
+      throw error;
+    }
+  }
+
+  async deleteBy(id: number) {
+    try {
+      const userExists = await this.prisma.user.findUnique({
+        where: {
+          id: +id,
+        },
+      });
+
+      if (!userExists) {
+        throw new NotFoundException('El usuario no existe');
+      }
+
+      const deleteUser = await this.prisma.user.delete({
+        where: {
+          id: id,
+        },
+      });
+
+      return deleteUser;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // The .code property can be accessed in a type-safe manner

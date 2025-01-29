@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {
   "name":"Pepito",
-  "email":"jsalgadoecheverria@gmail.com",
+  "email":"jsalgadoecheverria019@gmail.com",
   "rol":"ADMIN"
 }
 
@@ -30,12 +30,12 @@ Content-Type: application/json
 
 
 ###* edicion de usuario por id 
-
 PUT http://localhost:3000/api/user/edit/1
 Content-Type: application/json
 
 {
-
+  "name":"pepito rodrigues",
+  "rol":"Editor"
 }
 
 
