@@ -37,7 +37,7 @@ $ npm install
 1. Tener las las credenciales de db
 2. copia .env.template y renombrar .env
 3. Ejecutar npm install para la dependecias
-4. Ejecutar  npm install @prisma/client && npx prisma migrate dev para ejecutar la migraciones
+4. Ejecutar  npm install @prisma/client & npx prisma migrate dev para ejecutar la migraciones
 5. Ejecutar el proyecto 
 
 ```bash
